@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Stock Image Enhancer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <h1>AI Stock Enhancer</h1>
+            </div>
+            <button id="settingsBtn" class="icon-btn"><i class="fa-solid fa-gear"></i></button>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <div id="dropZone" class="drop-zone">
+                    <div class="icon-wrapper">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+                    <h3>Drag & Drop AI Images</h3>
+                    <p>or click to browse</p>
+                    <input type="file" id="fileInput" multiple accept="image/*" hidden>
+                </div>
+            </section>
+
+            <section class="controls-section">
+                <div class="control-group">
+                    <label>
+                        <input type="checkbox" id="enableUpscale" checked>
+                        Enable Upscayl (4x)
+                    </label>
+                    <select id="modelSelect">
+                        <option value="upscayl-standard-4x">Standard 4x</option>
+                        <option value="remacri-4x">Remacri 4x (Detail)</option>
+                        <option value="ultrasharp-4x">UltraSharp 4x</option>
+                        <option value="ultramix-balanced-4x">UltraMix Balanced</option>
+                    </select>
+                </div>
+                <button id="processBtn" class="primary-btn" disabled>
+                    Start Processing <span id="queueCount"></span>
+                </button>
+            </section>
+
+            <section class="progress-section" id="progressSection" hidden>
+                <div class="progress-bar-container">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+                <p id="statusText">Waiting...</p>
+            </section>
+
+            <section class="gallery-section">
+                <h2>Processed Images</h2>
+                <div id="galleryGrid" class="gallery-grid">
+                    <!-- Images will appear here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Settings</h2>
+                    <button id="closeSettings" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <label>Upscayl Binary Path</label>
+                    <input type="text" id="upscaylPath" placeholder="Path to upscayl-bin.exe">
+                    <p class="hint">Usually: C:\Users\YourUser\AppData\Local\Programs\Upscayl\resources\bin\upscayl-bin.exe</p>
+                    <button id="saveSettings" class="secondary-btn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
