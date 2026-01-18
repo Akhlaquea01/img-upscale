@@ -199,6 +199,12 @@ async function processImage(fileName, settings) {
         // Cleanup temp
         if (fs.existsSync(tempUpscaledPath)) fs.unlinkSync(tempUpscaledPath);
 
+        // Delete input file after successful processing to prevent duplicates
+        if (fs.existsSync(inputPath)) {
+            fs.unlinkSync(inputPath);
+            console.log(`[${fileName}] Deleted from input folder`);
+        }
+
         io.emit('progress', { type: 'complete', file: fileName, output: `/output/${path.basename(finalOutputPath)}` });
         console.log(`[${fileName}] Processed & Tagged with identity: ${ARTIST}`);
 
